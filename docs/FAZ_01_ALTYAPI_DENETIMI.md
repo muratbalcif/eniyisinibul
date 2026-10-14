@@ -6,7 +6,7 @@ Durum: Başladı. Üretim dağıtımı yapılmaz.
 - pnpm 9.15.9 monorepo; API NestJS 10, Prisma 6 ve PostgreSQL; web Next.js.
 - CI: Prisma schema validate, Prisma client generate, retention unit tests, build.
 - `packages/database/prisma/migrations/migration_lock.toml` mevcut.
-- Beklenen `packages/database/prisma/migrations/20261001000000_init/migration.sql` yolunda dosya bulunamadı. Bu, migration geçmişinin henüz doğrulanamadığı anlamına gelir; veritabanına `db push` veya reset uygulanmamalıdır.
+- `packages/database/prisma/migrations/20261001000000_init/migration.sql` başlangıç SQL'i mevcut Prisma şemasından hazırlanıp eklendi. Henüz Prisma diff veya boş veritabanı üzerinde doğrulanmadı. Mevcut veritabanına `db push` veya reset uygulanmamalıdır.
 - GitHub Actions başarılı çalışma sonucu henüz doğrulanmadı.
 
 ## Sıradaki güvenli adımlar
@@ -17,7 +17,8 @@ Durum: Başladı. Üretim dağıtımı yapılmaz.
 5. Ortam değişkenleri, sırların yönetimi, healthcheck ve rollback prosedürünü denetle.
 
 ## Kapılar
-- [ ] Migration geçmişi doğrulandı.
+- [x] Eksik başlangıç migration SQL dosyası eklendi (yeni boş veritabanı için).
+- [ ] Migration geçmişi ve SQL/Prisma şema eşitliği doğrulandı.
 - [ ] Boş test veritabanında migration başarıyla uygulandı.
 - [ ] CI test/build başarılı.
 - [ ] Geri alma ve yedekleme prosedürü belgelendi.

@@ -1,6 +1,7 @@
 import { CanActivate, Controller, ExecutionContext, Get, HttpCode, Injectable, Post, Req, Res, UnauthorizedException, Body } from '@nestjs/common';
 import { DatabaseService } from './database';
 import { AdminOriginGuard } from './admin-origin';
+import { LoginThrottle } from './login-throttle';
 import { UseGuards } from '@nestjs/common';
 import { createHash, randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'node:crypto';
 import { promisify } from 'node:util';
@@ -39,13 +40,14 @@ export class AdminSessionGuard implements CanActivate {
 }
 @Controller('api/v1/admin/auth')
 export class AdminAuthController {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(private readonly db: DatabaseService, private readonly throttle: LoginThrottle) {}
   @Post('login')
   @UseGuards(AdminOriginGuard)
   @HttpCode(200)
-  async login(@Body() body: unknown, @Res({ passthrough: true }) res: Response) {
+  async login(@Body() body: unknown, @Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const data = body && typeof body === 'object' && !Array.isArray(body) ? body as Record<string, unknown> : {};
     if (typeof data.email !== 'string' || typeof data.password !== 'string' || data.password.length > 1024) throw new UnauthorizedException();
+    this.throttle.check(req.socket.remoteAddress ?? 'unknown', data.email.trim().toLowerCase());
     const user = await this.db.adminUser.findUnique({ where: { email: data.email.trim().toLowerCase() } });
     if (!user || !user.active || !await verifyPassword(data.password, user.passwordHash)) throw new UnauthorizedException();
     const token = randomBytes(32).toString('hex');

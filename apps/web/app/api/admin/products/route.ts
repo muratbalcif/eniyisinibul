@@ -16,13 +16,14 @@ export async function POST(request: NextRequest) {
   if (typeof data.title !== 'string' || !data.title.trim() || data.title.length > 240 ||
       typeof data.slug !== 'string' || data.slug.length > 120 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(data.slug) ||
       typeof data.categoryId !== 'string' || !data.categoryId || data.categoryId.length > 64 ||
+      (data.imageUrl !== null && data.imageUrl !== undefined && (typeof data.imageUrl !== 'string' || data.imageUrl.length > 2048)) ||
       (data.description !== undefined && (typeof data.description !== 'string' || data.description.length > 5000))) {
     return NextResponse.json({ error: 'Invalid product' }, { status: 400 });
   }
   try {
     const response = await fetch(new URL('/api/v1/admin/products', api), {
       method: 'POST', headers: { Origin: origin, Cookie: 'eib_admin_session=' + token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: data.title, slug: data.slug, categoryId: data.categoryId, description: data.description || null }),
+      body: JSON.stringify({ title: data.title, slug: data.slug, categoryId: data.categoryId, description: data.description || null, imageUrl: data.imageUrl || null }),
       cache: 'no-store',
     });
     if (!response.ok) return NextResponse.json({ error: 'Product not created' }, { status: response.status });

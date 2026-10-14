@@ -1,7 +1,7 @@
 import { BadRequestException, Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DatabaseService } from './database';
-import { AdminDevGuard } from './admin-auth';
+import { AdminSessionGuard } from './admin-auth';
 
 function obj(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new BadRequestException('JSON object required');
@@ -35,7 +35,7 @@ async function safeWrite<T>(operation: () => Promise<T>): Promise<T> {
 }
 
 @Controller('api/v1/admin')
-@UseGuards(AdminDevGuard)
+@UseGuards(AdminSessionGuard)
 export class AdminCatalogController {
   constructor(private readonly db: DatabaseService) {}
 

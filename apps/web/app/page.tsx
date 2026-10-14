@@ -22,18 +22,6 @@ async function catalog() {
 export default async function Home() {
   const { categories, products, available } = await catalog();
   return <main style={{ minHeight: '100vh', background: '#f8faf9', color: '#15352e' }}>
-    <header style={{ borderBottom: '1px solid #e2ebe7', background: '#fff' }}>
-      <div style={{ maxWidth: 1180, margin: 'auto', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-        <Link href="/" style={{ color: '#0f766e', textDecoration: 'none', fontWeight: 800, fontSize: 22 }}>eniyisinibul<span style={{ color: '#f97316' }}>.</span></Link>
-        <nav aria-label="Ana menü" style={{ display: 'flex', gap: 22, flexWrap: 'wrap' }}>
-          <Link href="/urunler" style={{ color: '#34564c' }}>Tüm ürünler</Link>
-          <Link href="#kategoriler" style={{ color: '#34564c' }}>Kategoriler</Link>
-          <Link href="#urunler" style={{ color: '#34564c' }}>Ürünler</Link>
-          <Link href="/rehber" style={{ color: '#34564c' }}>Satın alma rehberi</Link>
-          <Link href="#nasil-calisir" style={{ color: '#34564c' }}>Nasıl çalışır?</Link>
-        </nav>
-      </div>
-    </header>
     <section style={{ background: 'linear-gradient(135deg,#e8f6f0 0%,#fff6e9 100%)', padding: '90px 24px 100px' }}>
       <div style={{ maxWidth: 1180, margin: 'auto' }}>
         <p style={{ color: '#0f766e', fontWeight: 800, letterSpacing: 1.5 }}>DAHA BİLİNÇLİ ALIŞVERİŞ</p>
@@ -63,6 +51,6 @@ export default async function Home() {
       <p style={{ marginTop: 28 }}><Link href="/urunler" style={{ color: '#0f766e', fontWeight: 700 }}>Tüm ürünleri görüntüle →</Link></p>
     </section>
     <section id="nasil-calisir" style={{ background: '#eaf4ef', padding: '70px 24px' }}><div style={{ maxWidth: 1180, margin: 'auto' }}><h2 style={{ fontSize: 34 }}>Nasıl çalışır?</h2><div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}><div><h3>01 · İhtiyacını belirle</h3><p>Önceliklerini ve kullanım amacını netleştir.</p></div><div><h3>02 · Özellikleri incele</h3><p>Ürün bilgilerini anlaşılır bir şekilde değerlendir.</p></div><div><h3>03 · Kararını ver</h3><p>Mağaza bağlantılarına geçmeden önce seçenekleri gözden geçir.</p></div></div></div></section>
-    <footer style={{ maxWidth: 1180, margin: 'auto', padding: '36px 24px', color: '#64766f' }}><strong>eniyisinibul.</strong><p>Bağımsız ürün keşif platformu. Bazı mağaza bağlantıları satış ortaklığı bağlantısı olabilir.</p></footer>
+
   </main>;
 }

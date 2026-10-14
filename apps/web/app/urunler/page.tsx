@@ -1,5 +1,13 @@
 import Link from 'next/link';
 import CompareSelector from './compare-selector';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ category?: string; page?: string; q?: string }> }): Promise<Metadata> {
+  const params = await searchParams;
+  const filtered = Boolean(params.q || params.page && params.page !== '1');
+  return { title: 'Ürünleri keşfet', description: 'Anne ve bebek ürünlerini inceleyin, kategorilere göre filtreleyin ve özelliklerini karşılaştırın.', robots: filtered ? { index: false, follow: true } : { index: true, follow: true } };
+}
+
 
 type Category = { id: string; slug: string; name: string };
 type Product = { id: string; slug: string; title: string; description: string | null; imageUrl?: string | null; category: { name: string } };

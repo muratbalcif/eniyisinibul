@@ -4,7 +4,7 @@ Durum: Başladı. Üretim dağıtımı yapılmaz.
 
 ## Mevcut durum
 - pnpm 9.15.9 monorepo; API NestJS 10, Prisma 6 ve PostgreSQL; web Next.js.
-- CI: Prisma schema validate, Prisma client generate, retention unit tests, build.
+- CI: Prisma schema validate, Prisma client generate, izole PostgreSQL 16 üzerinde migrate deploy/status/diff, retention unit tests, build. Bu adımların başarılı çalışması henüz doğrulanmadı.
 - `packages/database/prisma/migrations/migration_lock.toml` mevcut.
 - `packages/database/prisma/migrations/20261001000000_init/migration.sql` başlangıç SQL'i mevcut Prisma şemasından hazırlanıp eklendi. Henüz Prisma diff veya boş veritabanı üzerinde doğrulanmadı. Mevcut veritabanına `db push` veya reset uygulanmamalıdır.
 - GitHub Actions başarılı çalışma sonucu henüz doğrulanmadı.
@@ -19,7 +19,8 @@ Durum: Başladı. Üretim dağıtımı yapılmaz.
 ## Kapılar
 - [x] Eksik başlangıç migration SQL dosyası eklendi (yeni boş veritabanı için).
 - [ ] Migration geçmişi ve SQL/Prisma şema eşitliği doğrulandı.
-- [ ] Boş test veritabanında migration başarıyla uygulandı.
+- [x] İzole PostgreSQL 16 üzerinde migration ve drift kontrolü CI'a eklendi.
+- [ ] Boş test veritabanında migration başarıyla uygulandı (CI sonucu bekleniyor).
 - [ ] CI test/build başarılı.
 - [ ] Geri alma ve yedekleme prosedürü belgelendi.
 - [ ] VPS dağıtımı Faz 13'e kadar ertelendi.

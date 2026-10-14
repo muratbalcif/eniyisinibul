@@ -5,6 +5,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: eniyisinibul
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci -d eniyisinibul"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -20,6 +34,18 @@ jobs:
         env:
           DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
       - run: pnpm --filter @eib/database db:generate
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
+      - name: Apply initial migrations to isolated CI PostgreSQL
+        run: pnpm --filter @eib/database exec prisma migrate deploy
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
+      - name: Check migration status
+        run: pnpm --filter @eib/database exec prisma migrate status
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
+      - name: Check migration schema drift
+        run: pnpm --filter @eib/database exec prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --exit-code
         env:
           DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
       - name: Test retention preview (no database writes)

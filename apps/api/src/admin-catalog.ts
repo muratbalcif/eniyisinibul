@@ -25,6 +25,18 @@ function imageUrl(value: unknown): string | null {
   if (url.protocol !== 'https:' || url.username || url.password || url.port || !['images.unsplash.com', 'm.media-amazon.com', 'images-na.ssl-images-amazon.com'].includes(url.hostname.toLowerCase())) throw new BadRequestException('Image host not allowed');
   return url.toString();
 }
+function specs(value: unknown): Record<string, string> | null {
+  if (value == null) return null;
+  if (typeof value !== 'object' || Array.isArray(value)) throw new BadRequestException('Invalid specifications');
+  const entries = Object.entries(value);
+  if (entries.length > 20) throw new BadRequestException('Too many specifications');
+  const result: Record<string, string> = {};
+  for (const [key, val] of entries) {
+    if (!key.trim() || key.length > 60 || typeof val !== 'string' || !val.trim() || val.length > 240) throw new BadRequestException('Invalid specification');
+    result[key.trim()] = val.trim();
+  }
+  return result;
+}
 function pageParams(pageRaw?: string, limitRaw?: string) {
   const page = pageRaw === undefined ? 1 : Number(pageRaw);
   const limit = limitRaw === undefined ? 20 : Number(limitRaw);

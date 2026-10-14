@@ -1,4 +1,4 @@
-import { BadRequestException, Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Inject, BadRequestException, Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DatabaseService } from './database';
 import { AdminSessionGuard } from './admin-auth';
@@ -58,7 +58,7 @@ async function safeWrite<T>(operation: () => Promise<T>): Promise<T> {
 @Controller('api/v1/admin')
 @UseGuards(AdminOriginGuard, AdminSessionGuard)
 export class AdminCatalogController {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(@Inject(DatabaseService) private readonly db: DatabaseService) {}
 
   @Get('categories')
   categories() { return this.db.category.findMany({ orderBy: { name: 'asc' } }); }

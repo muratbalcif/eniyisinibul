@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 const sections = [
   { title: 'Ürünler', detail: 'Ürün kayıtları, açıklamalar ve yayın hazırlığı' },
@@ -6,7 +8,18 @@ const sections = [
   { title: 'Affiliate bağlantıları', detail: 'Mağaza bağlantıları ve durum kontrolü' },
 ];
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const token = (await cookies()).get('eib_admin_session')?.value;
+  const api = process.env.ADMIN_API_INTERNAL_URL;
+  if (!token || !api) redirect('/admin/login');
+  let valid = false;
+  try {
+    const response = await fetch(new URL('/api/v1/admin/auth/session', api), {
+      headers: { Cookie: 'eib_admin_session=' + token }, cache: 'no-store',
+    });
+    valid = response.ok;
+  } catch { valid = false; }
+  if (!valid) redirect('/admin/login');
   return (
     <main style={{ maxWidth: 1080, margin: '0 auto', padding: '56px 24px' }}>
       <header style={{ marginBottom: 36 }}>

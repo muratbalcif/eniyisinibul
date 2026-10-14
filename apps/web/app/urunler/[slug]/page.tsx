@@ -28,7 +28,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     <section style={{ marginTop: 36 }}>
       <h2>Mağaza seçenekleri</h2>
       <p style={{ color: '#64748b' }}>Yalnızca doğrulanmış ve aktif mağaza bağlantıları gösterilir. Bazı bağlantılar satış ortaklığı kapsamında olabilir.</p>
-      {product.links.length ? <p>Bu ürün için {product.links.length} aktif mağaza seçeneği bulunuyor. Bağlantı yönlendirmeleri yakında açılacak.</p> : <p>Henüz aktif mağaza bağlantısı bulunmuyor.</p>}
+      {product.links.length ? <div style={{ display: 'grid', gap: 12 }}>{product.links.map(link => <a key={link.id} href={'/go/' + link.id} target="_blank" rel="sponsored noopener noreferrer" style={{ display: 'block', padding: 18, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, color: '#0f766e', fontWeight: 700 }}>Amazon Türkiye mağazasına git ↗</a>)}</div> : <p>Henüz aktif mağaza bağlantısı bulunmuyor.</p>}
     </section>
   </main>;
 }

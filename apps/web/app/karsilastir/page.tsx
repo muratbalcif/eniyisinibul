@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+export const metadata: Metadata = { title: 'Ürün karşılaştırma', robots: { index: false, follow: true } };
 type Product = { id: string; title: string; slug: string; imageUrl?: string | null; specifications?: Record<string,string> | null };
 export default async function Compare({ searchParams }: { searchParams: Promise<{ urunler?: string }> }) {
   const { urunler } = await searchParams;

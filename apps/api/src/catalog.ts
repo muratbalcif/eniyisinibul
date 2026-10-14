@@ -17,6 +17,7 @@ export class CatalogController {
   @Get('products')
   async products(
     @Query('category') category?: string,
+    @Query('q') query?: string,
     @Query('page') pageRaw?: string,
     @Query('limit') limitRaw?: string,
   ) {
@@ -25,7 +26,12 @@ export class CatalogController {
     if (!Number.isInteger(page) || page < 1 || !Number.isInteger(limit) || limit < 1 || limit > 100) {
       throw new BadRequestException('page must be >= 1 and limit must be between 1 and 100');
     }
-    const where = category ? { category: { slug: category } } : {};
+    const q = typeof query === 'string' ? query.trim() : '';
+    if (q.length > 100) throw new BadRequestException('Search query too long');
+    const where = {
+      ...(category ? { category: { slug: category } } : {}),
+      ...(q ? { OR: [{ title: { contains: q, mode: 'insensitive' as const } }, { description: { contains: q, mode: 'insensitive' as const } }] } : {}),
+    };
     const [items, total] = await this.db.$transaction([
       this.db.product.findMany({
         where, skip: (page - 1) * limit, take: limit,

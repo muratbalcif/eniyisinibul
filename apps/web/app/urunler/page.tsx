@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CompareSelector from './compare-selector';
 
 type Product = { id: string; slug: string; title: string; description: string | null; imageUrl?: string | null; category: { name: string } };
 type Result = { items: Product[]; total: number; page: number; limit: number };
@@ -33,6 +34,7 @@ export default async function Products({ searchParams }: { searchParams: Promise
     </form>
     {!result ? <p role="alert">Ürünler şu anda yüklenemiyor.</p> : <>
       <p>{result.total} ürün bulundu.</p>
+      <CompareSelector products={result.items} />
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 18 }}>
         {result.items.map(item => <Link key={item.id} href={'/urunler/' + item.slug} style={{ padding: 24, background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', textDecoration: 'none', color: '#15352e' }}>
           {item.imageUrl && <img src={item.imageUrl} alt={item.title} loading="lazy" style={{ width: '100%', height: 190, objectFit: 'contain' }} />}

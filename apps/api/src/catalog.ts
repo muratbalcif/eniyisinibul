@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, NotFoundException } from '@nestjs/common';
 const categories = [{ slug: 'anne-bebek', name: 'Anne & Bebek' }];
 @Controller('api/v1')
 export class CatalogController {
@@ -7,6 +7,6 @@ export class CatalogController {
     return { items: [], total: 0, category: category ?? null };
   }
   @Get('products/:slug') product(@Param('slug') slug: string) {
-    return { message: 'Product not found', slug, statusCode: 404 };
+    throw new NotFoundException(`Product not found: ${slug}`);
   }
 }

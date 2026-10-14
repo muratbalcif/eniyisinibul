@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 const sections = [
   { title: 'Ürünler', href: '/admin/products', detail: 'Ürün kayıtları, açıklamalar ve yayın hazırlığı' },
   { title: 'Kategoriler', href: '/admin/categories', detail: 'Kategori hiyerarşisi ve düzenleme' },
-  { title: 'Affiliate bağlantıları', href: '', detail: 'Mağaza bağlantıları ve durum kontrolü' },
+  { title: 'Affiliate bağlantıları', href: '/admin/affiliate-links', detail: 'Mağaza bağlantıları ve durum kontrolü' },
 ];
 
 export default async function AdminPage() {

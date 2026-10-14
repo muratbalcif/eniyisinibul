@@ -60,7 +60,7 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 
 ## 0.9 Resmî kaynak kontrolü (14.10.2026)
 - Amazon bağlantı düzeyinde açık ve görünür reklam/komisyon açıklaması ister. Ürün detayındaki bağlantı metni bu yönde güncellendi.
-- Amazon'un açıklama rehberi, site üzerinde şu ifadenin yer almasını istiyor: "Bir Amazon Gelir Ortağı olarak nitelikli satın alımlar üzerinden kazanç elde ediyorum." Bu ifadenin site geneline eklenmesi hâlâ açık.
+- Amazon'un açıklama rehberi, site üzerinde şu ifadenin yer almasını istiyor: "Bir Amazon Gelir Ortağı olarak nitelikli satın alımlar üzerinden kazanç elde ediyorum." Bu ifade site alt bilgisinde yer alıyor; üretim görünümü ayrıca doğrulanacak.
 - Amazon başvuru incelemesi için ilk 180 gün içinde en az üç uygun satış ve özgün, kamuya açık içerik şartlarından söz ediyor; mevcut hesap için uygulanabilirlik Amazon panelinden ayrıca doğrulanmalı.
 - KVKK m.10 kapsamında veri sorumlusu, amaç, aktarım, toplama yöntemi/hukuki sebep ve ilgili kişi hakları açıklanmalı. Aydınlatma ve açık rıza ayrı süreçlerdir.
 - Kaynaklar:
@@ -82,6 +82,7 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 - [ ] Adresin sicil kaydıyla eşleşmesi ve veri sorumlusu sıfatı doğrulandı.
 - [x] Amazon standart beyanı site alt bilgisine eklendi.
 - [x] Teknik veri işleme envanteri taslağı oluşturuldu (`docs/FAZ_00_VERI_ENVANTERI.md`).
+- [x] Gizlilik ön bilgilendirmesine tıklama kaydı ve ilgili kişi başvuru e-postası eklendi.
 - [ ] Nihai KVKK, çerez ve affiliate metinleri hukuk/uyum açısından onaylandı.
 - [ ] Faz 0 ürün kararları proje sahibi tarafından onaylandı.
 

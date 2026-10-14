@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const response = await fetch(new URL('/api/v1/products/' + encodeURIComponent(slug), api), { next: { revalidate: 300 } });
     if (!response.ok) return { title: 'Ürün detayı' };
     const product = await response.json() as Product;
-    return { title: product.title, description: product.description?.slice(0, 155) || product.title };
+    return { title: product.title, description: product.description?.slice(0, 155) || product.title, openGraph: { title: product.title, description: product.description?.slice(0, 155) || product.title, type: 'website', ...(product.imageUrl ? { images: [{ url: product.imageUrl, alt: product.title }] } : {}) } };
   } catch { return { title: 'Ürün detayı' }; }
 }
 

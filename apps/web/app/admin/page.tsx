@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const sections = [
+  { title: 'Amazon Otomatik Katalog', href: '/admin/amazon', detail: 'Kategori keşif planı, hedef ürün sayısı ve API erişim durumu' },
   { title: 'Ürünler', href: '/admin/products', detail: 'Ürün kayıtları, açıklamalar ve yayın hazırlığı' },
   { title: 'Kategoriler', href: '/admin/categories', detail: 'Kategori listesi ve yeni kategori oluşturma' },
   { title: 'Affiliate bağlantıları', href: '/admin/affiliate-links', detail: 'Mağaza bağlantıları ve durum kontrolü' },

@@ -25,11 +25,16 @@ Durum: Teknik öneri. Hukuki saklama yükümlülükleri doğrulanmadan üretim p
 
 API çalışma alanında `pnpm --filter @eib/api retention:preview` komutu yalnızca kayıt sayılarını JSON olarak gösterir. Veritabanına yazmaz, kayıt silmez. 90 günlük eşik öneridir. Bu komut üretim veritabanında çalıştırılmadan önce bağlantı ve erişim yetkileri kontrol edilmelidir.
 
+## Otomatik test
+
+`pnpm --filter @eib/api test:retention` komutu salt okunur önizleme fonksiyonunun sayım ve hata davranışını sahte Prisma istemcisiyle kontrol eder. Test dosyası GitHub'a eklendi; CI veya yerel çalıştırma sonucu henüz doğrulanmadı.
+
 ## Kabul
 - [x] Kayıt türleri ve taslak süreler belgelendi.
 - [ ] Hukuki sebepler ve saklama süreleri yetkili kişi tarafından onaylandı.
 - [ ] Üretim log/çerez envanteri doğrulandı.
 - [x] Salt okunur dry-run sayım fonksiyonu ve CLI eklendi.
+- [x] Salt okunur önizleme için birim testleri eklendi (çalıştırma sonucu bekleniyor).
 - [ ] Dry-run çıktısı gerçek test veritabanında doğrulandı.
 - [ ] Sınırlı silme ve geri dönüş senaryoları test edildi.
 - [ ] Silme işlemi için operasyonel yetkilendirme oluşturuldu.

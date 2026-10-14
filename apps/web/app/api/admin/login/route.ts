@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({ authenticated: true });
     response.cookies.set('eib_admin_session', token, {
       httpOnly: true, sameSite: 'strict', secure: process.env.NODE_ENV === 'production',
-      path: '/admin', maxAge: 8 * 60 * 60,
+      path: '/', maxAge: 8 * 60 * 60,
     });
     return response;
   } catch { return NextResponse.json({ error: 'Upstream unavailable' }, { status: 502 }); }

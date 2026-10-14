@@ -3,6 +3,7 @@ export const metadata: Metadata = { title: 'Gizlilik Bilgilendirmesi', descripti
 export default function PrivacyPage() {
   return <main style={{ maxWidth: 850, margin: 'auto', padding: '48px 24px', lineHeight: 1.8 }}>
     <h1>Gizlilik bilgilendirmesi</h1>
+    <h2>İşletmeci ve iletişim</h2><p>BALANCETECH Bilişim Danışmanlık Ltd. Şti. — Öğretmenler Mahallesi, 2927. Sokak, No: 9/2, Tarsus/Mersin, Türkiye. İletişim: <a href="mailto:muratbalci269@gmail.com">muratbalci269@gmail.com</a>.</p>
     <p>Bu sayfa, platformun mevcut işleyişine ilişkin ön bilgilendirme niteliğindedir. Yayına alınmadan önce veri sorumlusu kimliği, iletişim bilgileri ve gerçek veri işleme süreçleri doğrulanarak nihai KVKK aydınlatma metni hazırlanmalıdır.</p>
     <h2>Ürün keşfi</h2><p>Ürünleri incelemek ve karşılaştırmak için ziyaretçi hesabı açılması gerekmez. Arama terimleri ürün listeleme isteğinde kullanılabilir.</p>
     <h2>Mağaza bağlantıları</h2><p>Mağazaya geçişte üçüncü tarafın kendi gizlilik ve çerez uygulamaları geçerli olabilir. Satış ortaklığı bağlantıları kullanılabilir.</p>

@@ -49,6 +49,21 @@ export class AdminCatalogController {
     return safeWrite(() => this.db.category.create({ data: { slug: slug(body.slug), name: requiredString(body.name, 'name') } }));
   }
 
+  @Patch('categories/:id')
+  updateCategory(@Param('id') id: string, @Body() input: unknown) {
+    const body = obj(input);
+    const data: { name?: string; slug?: string } = {};
+    if ('name' in body) data.name = requiredString(body.name, 'name');
+    if ('slug' in body) data.slug = slug(body.slug);
+    if (!Object.keys(data).length) throw new BadRequestException('No editable fields');
+    return safeWrite(() => this.db.category.update({ where: { id }, data }));
+  }
+
+  @Delete('categories/:id')
+  deleteCategory(@Param('id') id: string) {
+    return safeWrite(() => this.db.category.delete({ where: { id }, select: { id: true } }));
+  }
+
   @Get('products')
   async products(@Query('page') pageRaw?: string, @Query('limit') limitRaw?: string) {
     const { page, limit } = pageParams(pageRaw, limitRaw);

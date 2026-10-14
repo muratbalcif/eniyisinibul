@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import CompareSelector from './compare-selector';
 
+type Category = { id: string; slug: string; name: string };
 type Product = { id: string; slug: string; title: string; description: string | null; imageUrl?: string | null; category: { name: string } };
 type Result = { items: Product[]; total: number; page: number; limit: number };
 export default async function Products({ searchParams }: { searchParams: Promise<{ category?: string; page?: string; q?: string }> }) {
@@ -10,6 +11,7 @@ export default async function Products({ searchParams }: { searchParams: Promise
   const requested = Number(params.page ?? 1);
   const page = Number.isSafeInteger(requested) && requested > 0 && requested < 10000 ? requested : 1;
   let result: Result | null = null;
+  let categories: Category[] = [];
   try {
     const api = process.env.ADMIN_API_INTERNAL_URL;
     if (api) {
@@ -18,7 +20,8 @@ export default async function Products({ searchParams }: { searchParams: Promise
       url.searchParams.set('limit', '24');
       if (category) url.searchParams.set('category', category);
       if (q) url.searchParams.set('q', q);
-      const response = await fetch(url, { next: { revalidate: 300 } });
+      const [response, categoryResponse] = await Promise.all([fetch(url, { next: { revalidate: 300 } }), fetch(new URL('/api/v1/categories', api), { next: { revalidate: 300 } })]);
+      if (categoryResponse.ok) categories = await categoryResponse.json() as Category[];
       if (response.ok) result = await response.json() as Result;
     }
   } catch { /* Show a clear unavailable state */ }
@@ -26,6 +29,7 @@ export default async function Products({ searchParams }: { searchParams: Promise
     <p><Link href="/" style={{ color: '#0f766e' }}>← Ana sayfa</Link></p>
     <h1 style={{ fontSize: 42 }}>Ürünleri keşfet</h1>
     <p style={{ color: '#64748b' }}>İhtiyacına uygun ürünleri incele, özellikleri değerlendir.</p>
+    <nav aria-label="Ürün kategorileri" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 24 }}><Link href={'/urunler' + (q ? '?q=' + encodeURIComponent(q) : '')} style={{ padding: '9px 14px', borderRadius: 999, background: !category ? '#0f766e' : '#fff', color: !category ? '#fff' : '#0f766e', border: '1px solid #c9dfd5' }}>Tümü</Link>{categories.map(item => <Link key={item.id} href={'/urunler?category=' + encodeURIComponent(item.slug) + (q ? '&q=' + encodeURIComponent(q) : '')} style={{ padding: '9px 14px', borderRadius: 999, background: category === item.slug ? '#0f766e' : '#fff', color: category === item.slug ? '#fff' : '#0f766e', border: '1px solid #c9dfd5' }}>{item.name}</Link>)}</nav>
     <form action="/urunler" method="get" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', margin: '24px 0' }}>
       <input type="search" name="q" defaultValue={q} maxLength={100} placeholder="Ürün veya özellik ara" aria-label="Ürün ara" style={{ flex: '1 1 260px', padding: 14, borderRadius: 10, border: '1px solid #cbd5e1' }} />
       {category && <input type="hidden" name="category" value={category} />}
@@ -47,7 +51,7 @@ export default async function Products({ searchParams }: { searchParams: Promise
       {!result.items.length && <div style={{ padding: 28, background: '#fff', borderRadius: 16 }}><h2>Aradığınız ürün bulunamadı</h2><p>Farklı kelimeler deneyebilir veya tüm ürünleri inceleyebilirsiniz.</p><Link href="/urunler" style={{ color: '#0f766e' }}>Tüm ürünleri gör →</Link></div>}
       <nav style={{ display: 'flex', gap: 24, marginTop: 32 }}>
         {page > 1 && <Link href={'/urunler?page=' + (page - 1) + (category ? '&category=' + category : '') + (q ? '&q=' + encodeURIComponent(q) : '')}>← Önceki</Link>}
-        {page * result.limit < result.total && <Link href={'/urunler?page=' + (page + 1) + (category ? '&category=' + category : '')}>Sonraki →</Link>}
+        {page * result.limit < result.total && <Link href={'/urunler?page=' + (page + 1) + (category ? '&category=' + category : '') + (q ? '&q=' + encodeURIComponent(q) : '')}>Sonraki →</Link>}
       </nav>
     </>}
   </main>;

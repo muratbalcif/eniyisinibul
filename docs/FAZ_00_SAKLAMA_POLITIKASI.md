@@ -27,7 +27,7 @@ API çalışma alanında `pnpm --filter @eib/api retention:preview` komutu yaln�
 
 ## Otomatik test
 
-`pnpm --filter @eib/api test:retention` komutu salt okunur önizleme fonksiyonunun sayım ve hata davranışını sahte Prisma istemcisiyle kontrol eder. Test dosyası GitHub'a eklendi; CI veya yerel çalıştırma sonucu henüz doğrulanmadı.
+`pnpm --filter @eib/api test:retention` komutu salt okunur önizleme fonksiyonunun sayım ve hata davranışını sahte Prisma istemcisiyle kontrol eder. Test dosyası GitHub'a eklendi ve GitHub Actions CI yapılandırmasına bağlandı. Başarılı bir CI çalıştırma sonucu henüz doğrulanmadı.
 
 ## Kabul
 - [x] Kayıt türleri ve taslak süreler belgelendi.

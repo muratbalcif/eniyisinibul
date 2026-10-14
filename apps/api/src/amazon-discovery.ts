@@ -1,6 +1,7 @@
-import { BadRequestException, Controller, Get, Inject, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Inject, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { DatabaseService } from './database';
 import { AdminSessionGuard } from './admin-auth';
+import { AdminOriginGuard } from './admin-origin';
 
 const catalog = [
   { key: 'baby', label: 'Anne & Bebek', keywords: ['bebek arabası', 'bebek oto koltuğu', 'bebek telsizi', 'emzirme yastığı', 'bebek gece lambası', 'bebek bezi', 'biberon', 'bebek bakım çantası'] },
@@ -46,4 +47,39 @@ export class AmazonDiscoveryController {
       note: 'Bu plan gerçek Amazon sonuçları içermez. API yetkisi olmadan istek yapılmaz.',
     };
   }
+  @Get('jobs')
+  async jobs() {
+    return this.db.amazonDiscoveryJob.findMany({ orderBy: { createdAt: 'desc' }, take: 50 });
+  }
+
+  @Get('jobs/:id')
+  async job(@Param('id') id: string) {
+    if (!/^[a-z0-9]{10,40}$/.test(id)) throw new BadRequestException('Geçersiz iş kimliği');
+    return this.db.amazonDiscoveryJob.findUnique({ where: { id } });
+  }
+
+  @Post('jobs')
+  @UseGuards(AdminOriginGuard)
+  async createJob(@Body() input: unknown) {
+    if (!input || typeof input !== 'object' || Array.isArray(input)) throw new BadRequestException('Geçersiz istek');
+    const body = input as Record<string, unknown>;
+    const selected = catalog.find(x => x.key === body.group);
+    const target = body.target;
+    if (!selected || typeof target !== 'number' || !Number.isSafeInteger(target) || target < 10 || target > 500) throw new BadRequestException('Geçersiz kategori veya hedef');
+    if (typeof body.categoryId !== 'string' || body.categoryId.length > 64) throw new BadRequestException('Yerel kategori seçin');
+    const category = await this.db.category.findUnique({ where: { id: body.categoryId }, select: { id: true } });
+    if (!category) throw new BadRequestException('Kategori bulunamadı');
+    return this.db.amazonDiscoveryJob.create({
+      data: { groupKey: selected.key, categoryId: category.id, targetCount: target, keywords: [...selected.keywords], status: 'DRAFT' },
+    });
+  }
+
+  @Post('jobs/:id/cancel')
+  @UseGuards(AdminOriginGuard)
+  async cancelJob(@Param('id') id: string) {
+    if (!/^[a-z0-9]{10,40}$/.test(id)) throw new BadRequestException('Geçersiz iş kimliği');
+    const result = await this.db.amazonDiscoveryJob.updateMany({ where: { id, status: { in: ['DRAFT', 'QUEUED'] } }, data: { status: 'CANCELLED', finishedAt: new Date() } });
+    return { cancelled: result.count === 1 };
+  }
+
 }

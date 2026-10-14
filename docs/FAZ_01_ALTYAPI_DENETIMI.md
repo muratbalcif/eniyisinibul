@@ -22,7 +22,8 @@ Durum: Başladı. Üretim dağıtımı yapılmaz.
 - [x] İzole PostgreSQL 16 üzerinde migration ve drift kontrolü CI'a eklendi.
 - [ ] Boş test veritabanında migration başarıyla uygulandı (CI sonucu bekleniyor).
 - [ ] CI test/build başarılı.
-- [ ] Geri alma ve yedekleme prosedürü belgelendi.
-- [ ] VPS dağıtımı Faz 13'e kadar ertelendi.
+- [x] Geri alma ve yedekleme prosedürü taslağı belgelendi (`docs/FAZ_01_YEDEKLEME_GERI_DONUS.md`).
+- [ ] İzole test ortamında yedek ve geri yükleme doğrulandı.
+- [x] VPS dağıtımı Faz 13'e kadar ertelendi.
 
 Amazon keşif/senkronizasyonu START onayı olmadan kapalı kalır.

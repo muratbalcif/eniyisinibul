@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       typeof data.slug !== 'string' || data.slug.length > 120 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(data.slug) ||
       typeof data.categoryId !== 'string' || !data.categoryId || data.categoryId.length > 64 ||
       (data.imageUrl !== null && data.imageUrl !== undefined && (typeof data.imageUrl !== 'string' || data.imageUrl.length > 2048)) ||
-      (data.description !== undefined && (typeof data.description !== 'string' || data.description.length > 5000))) {
+      (data.description !== null && data.description !== undefined && (typeof data.description !== 'string' || data.description.length > 5000))) {
     return NextResponse.json({ error: 'Invalid product' }, { status: 400 });
   }
   try {

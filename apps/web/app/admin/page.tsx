@@ -4,9 +4,9 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const sections = [
-  { title: 'Ürünler', detail: 'Ürün kayıtları, açıklamalar ve yayın hazırlığı' },
-  { title: 'Kategoriler', detail: 'Kategori hiyerarşisi ve düzenleme' },
-  { title: 'Affiliate bağlantıları', detail: 'Mağaza bağlantıları ve durum kontrolü' },
+  { title: 'Ürünler', href: '/admin/products', detail: 'Ürün kayıtları, açıklamalar ve yayın hazırlığı' },
+  { title: 'Kategoriler', href: '/admin/categories', detail: 'Kategori hiyerarşisi ve düzenleme' },
+  { title: 'Affiliate bağlantıları', href: '', detail: 'Mağaza bağlantıları ve durum kontrolü' },
 ];
 
 export default async function AdminPage() {
@@ -34,7 +34,7 @@ export default async function AdminPage() {
           <article key={section.title} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 18, padding: 24 }}>
             <h2 style={{ fontSize: 20 }}>{section.title}</h2>
             <p style={{ color: '#64748b', lineHeight: 1.6 }}>{section.detail}</p>
-            <span style={{ color: '#0f766e', fontSize: 14 }}>Yakında</span>
+            {section.href ? <Link href={section.href} style={{ color: '#0f766e', fontSize: 14 }}>Listeyi görüntüle →</Link> : <span style={{ color: '#0f766e', fontSize: 14 }}>Yakında</span>}
           </article>
         ))}
       </section>

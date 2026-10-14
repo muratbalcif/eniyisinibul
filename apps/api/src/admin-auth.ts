@@ -1,4 +1,4 @@
-import { CanActivate, Controller, ExecutionContext, Get, HttpCode, Injectable, Post, Req, Res, UnauthorizedException, Body } from '@nestjs/common';
+import { Inject, CanActivate, Controller, ExecutionContext, Get, HttpCode, Injectable, Post, Req, Res, UnauthorizedException, Body } from '@nestjs/common';
 import { DatabaseService } from './database';
 import { AdminOriginGuard } from './admin-origin';
 import { LoginThrottle } from './login-throttle';
@@ -28,7 +28,7 @@ async function verifyPassword(password: string, stored: string): Promise<boolean
 }
 @Injectable()
 export class AdminSessionGuard implements CanActivate {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(@Inject(DatabaseService) private readonly db: DatabaseService) {}
   async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest<Request>();
     const token = tokenFrom(req);
@@ -40,7 +40,7 @@ export class AdminSessionGuard implements CanActivate {
 }
 @Controller('api/v1/admin/auth')
 export class AdminAuthController {
-  constructor(private readonly db: DatabaseService, private readonly throttle: LoginThrottle) {}
+  constructor(@Inject(DatabaseService) private readonly db: DatabaseService, @Inject(LoginThrottle) private readonly throttle: LoginThrottle) {}
   @Post('login')
   @UseGuards(AdminOriginGuard)
   @HttpCode(200)

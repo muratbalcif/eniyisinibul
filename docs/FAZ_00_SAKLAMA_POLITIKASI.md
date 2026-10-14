@@ -21,11 +21,17 @@ Durum: Teknik öneri. Hukuki saklama yükümlülükleri doğrulanmadan üretim p
 - Silme işi önce dry-run olarak sayım vermeli; yetkili onayı ve denetim kaydı olmadan üretimde çalışmamalıdır.
 - Yedeklerdeki kopyalar ve saklama süreleri ayrıca ele alınmalıdır.
 
+## Teknik önizleme
+
+API çalışma alanında `pnpm --filter @eib/api retention:preview` komutu yalnızca kayıt sayılarını JSON olarak gösterir. Veritabanına yazmaz, kayıt silmez. 90 günlük eşik öneridir. Bu komut üretim veritabanında çalıştırılmadan önce bağlantı ve erişim yetkileri kontrol edilmelidir.
+
 ## Kabul
 - [x] Kayıt türleri ve taslak süreler belgelendi.
 - [ ] Hukuki sebepler ve saklama süreleri yetkili kişi tarafından onaylandı.
 - [ ] Üretim log/çerez envanteri doğrulandı.
-- [ ] Dry-run, sınırlı silme ve geri dönüş senaryoları test edildi.
+- [x] Salt okunur dry-run sayım fonksiyonu ve CLI eklendi.
+- [ ] Dry-run çıktısı gerçek test veritabanında doğrulandı.
+- [ ] Sınırlı silme ve geri dönüş senaryoları test edildi.
 - [ ] Silme işlemi için operasyonel yetkilendirme oluşturuldu.
 
 Bu belgedeki 90 günlük süreler **öneridir**, yürürlükteki mevzuatın kesin gereği olarak sunulmaz.

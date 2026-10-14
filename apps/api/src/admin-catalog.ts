@@ -17,6 +17,14 @@ function slug(value: unknown): string {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v)) throw new BadRequestException('Invalid slug');
   return v;
 }
+function imageUrl(value: unknown): string | null {
+  if (value === null || value === '') return null;
+  if (typeof value !== 'string' || value.length > 2048) throw new BadRequestException('Invalid image URL');
+  let url: URL;
+  try { url = new URL(value); } catch { throw new BadRequestException('Invalid image URL'); }
+  if (url.protocol !== 'https:' || url.username || url.password || url.port || !['images.unsplash.com', 'm.media-amazon.com', 'images-na.ssl-images-amazon.com'].includes(url.hostname.toLowerCase())) throw new BadRequestException('Image host not allowed');
+  return url.toString();
+}
 function pageParams(pageRaw?: string, limitRaw?: string) {
   const page = pageRaw === undefined ? 1 : Number(pageRaw);
   const limit = limitRaw === undefined ? 20 : Number(limitRaw);
@@ -82,17 +90,18 @@ export class AdminCatalogController {
     if (!category) throw new BadRequestException('Unknown categoryId');
     const description = body.description == null ? null : requiredString(body.description, 'description', 5000);
     return safeWrite(() => this.db.product.create({
-      data: { slug: slug(body.slug), title: requiredString(body.title, 'title', 240), description, categoryId },
+      data: { slug: slug(body.slug), title: requiredString(body.title, 'title', 240), description, categoryId, imageUrl: imageUrl(body.imageUrl) },
     }));
   }
 
   @Patch('products/:id')
   updateProduct(@Param('id') id: string, @Body() input: unknown) {
     const body = obj(input);
-    const data: { title?: string; description?: string | null; slug?: string } = {};
+    const data: { title?: string; description?: string | null; slug?: string; imageUrl?: string | null } = {};
     if ('title' in body) data.title = requiredString(body.title, 'title', 240);
     if ('slug' in body) data.slug = slug(body.slug);
     if ('description' in body) data.description = body.description === null ? null : requiredString(body.description, 'description', 5000);
+    if ('imageUrl' in body) data.imageUrl = imageUrl(body.imageUrl);
     if (!Object.keys(data).length) throw new BadRequestException('No editable fields');
     return safeWrite(() => this.db.product.update({ where: { id }, data }));
   }

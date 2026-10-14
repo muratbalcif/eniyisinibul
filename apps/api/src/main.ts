@@ -7,12 +7,13 @@ import { AdminCatalogController } from './admin-catalog';
 import { AdminLinksController } from './admin-links';
 import { AdminSessionGuard, AdminAuthController } from './admin-auth';
 import { AdminOriginGuard } from './admin-origin';
+import { LoginThrottle } from './login-throttle';
 
 @Controller()
 class HealthController {
   @Get('health') health() { return { status: 'ok', service: 'eniyisinibul-api' }; }
 }
-@Module({ controllers: [HealthController, CatalogController, AdminCatalogController, AdminLinksController, AdminAuthController], providers: [DatabaseService, AdminSessionGuard, AdminOriginGuard] })
+@Module({ controllers: [HealthController, CatalogController, AdminCatalogController, AdminLinksController, AdminAuthController], providers: [DatabaseService, AdminSessionGuard, AdminOriginGuard, LoginThrottle] })
 class AppModule {}
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

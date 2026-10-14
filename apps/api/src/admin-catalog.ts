@@ -2,6 +2,7 @@ import { BadRequestException, Body, ConflictException, Controller, Delete, Get, 
 import { Prisma } from '@prisma/client';
 import { DatabaseService } from './database';
 import { AdminSessionGuard } from './admin-auth';
+import { AdminOriginGuard } from './admin-origin';
 
 function obj(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new BadRequestException('JSON object required');
@@ -35,7 +36,7 @@ async function safeWrite<T>(operation: () => Promise<T>): Promise<T> {
 }
 
 @Controller('api/v1/admin')
-@UseGuards(AdminSessionGuard)
+@UseGuards(AdminOriginGuard, AdminSessionGuard)
 export class AdminCatalogController {
   constructor(private readonly db: DatabaseService) {}
 

@@ -1,7 +1,21 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
 type Product = { id: string; title: string; slug: string; description: string | null; category: { name: string; slug: string }; links: { id: string; merchant: string }[] };
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return { title: 'Ürün bulunamadı' };
+  const api = process.env.ADMIN_API_INTERNAL_URL;
+  if (!api) return { title: 'Ürün detayı' };
+  try {
+    const response = await fetch(new URL('/api/v1/products/' + encodeURIComponent(slug), api), { next: { revalidate: 300 } });
+    if (!response.ok) return { title: 'Ürün detayı' };
+    const product = await response.json() as Product;
+    return { title: product.title, description: product.description?.slice(0, 155) || product.title };
+  } catch { return { title: 'Ürün detayı' }; }
+}
+
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) notFound();

@@ -26,8 +26,10 @@ export default async function Home() {
       <div style={{ maxWidth: 1180, margin: 'auto', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
         <Link href="/" style={{ color: '#0f766e', textDecoration: 'none', fontWeight: 800, fontSize: 22 }}>eniyisinibul<span style={{ color: '#f97316' }}>.</span></Link>
         <nav aria-label="Ana menü" style={{ display: 'flex', gap: 22, flexWrap: 'wrap' }}>
+          <Link href="/urunler" style={{ color: '#34564c' }}>Tüm ürünler</Link>
           <Link href="#kategoriler" style={{ color: '#34564c' }}>Kategoriler</Link>
           <Link href="#urunler" style={{ color: '#34564c' }}>Ürünler</Link>
+          <Link href="/rehber" style={{ color: '#34564c' }}>Satın alma rehberi</Link>
           <Link href="#nasil-calisir" style={{ color: '#34564c' }}>Nasıl çalışır?</Link>
         </nav>
       </div>
@@ -43,6 +45,7 @@ export default async function Home() {
         </div>
       </div>
     </section>
+    <section style={{ maxWidth: 1180, margin: 'auto', padding: '32px 24px 0' }}><form action="/urunler" method="get" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', padding: 20, background: '#fff', border: '1px solid #dce9e2', borderRadius: 16 }}><input name="q" type="search" maxLength={100} placeholder="Hangi ürünü arıyorsunuz?" aria-label="Ürün ara" style={{ flex: '1 1 260px', padding: 14, border: '1px solid #cbd5e1', borderRadius: 10 }} /><button type="submit" style={{ padding: '14px 26px', border: 0, borderRadius: 10, background: '#0f766e', color: '#fff', fontWeight: 700 }}>Ürün ara</button></form></section>
     <section id="kategoriler" style={{ maxWidth: 1180, margin: 'auto', padding: '70px 24px 24px' }}>
       <p style={{ color: '#0f766e', fontWeight: 700 }}>KEŞFET</p>
       <h2 style={{ fontSize: 34, margin: '8px 0 12px' }}>İhtiyacına göre keşfet</h2>

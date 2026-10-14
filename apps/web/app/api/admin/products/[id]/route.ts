@@ -40,7 +40,7 @@ export async function PATCH(request: NextRequest, context: Context) {
   try {
     const upstream = await fetch(new URL('/api/v1/admin/products/' + id, api), {
       method: 'PATCH', headers: { Origin: origin, Cookie: 'eib_admin_session=' + token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: data.title, slug: data.slug, description: data.description ?? null }), cache: 'no-store',
+      body: JSON.stringify({ title: data.title, slug: data.slug, description: data.description ?? null, imageUrl: data.imageUrl ?? null }), cache: 'no-store',
     });
     if (!upstream.ok) return NextResponse.json({ error: 'Update failed' }, { status: upstream.status });
     return NextResponse.json({ updated: true });

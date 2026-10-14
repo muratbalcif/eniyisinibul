@@ -22,6 +22,23 @@ export class AdminLinksController {
   list(@Param('productId') productId: string) {
     return this.db.affiliateLink.findMany({ where: { productId }, orderBy: { createdAt: 'desc' } });
   }
+  @Get('audit')
+  async audit() {
+    const tag = process.env.AMAZON_ASSOCIATE_TAG;
+    const links = await this.db.affiliateLink.findMany({ where: { merchant: 'amazon-tr' }, select: { id: true, productId: true, url: true, active: true }, take: 1000, orderBy: { createdAt: 'desc' } });
+    return { checked: links.length, limited: links.length === 1000, results: links.map(link => {
+      const issues: string[] = [];
+      try {
+        const url = new URL(link.url);
+        if (url.protocol !== 'https:' || !['amazon.com.tr', 'www.amazon.com.tr'].includes(url.hostname.toLowerCase()) || url.username || url.password || url.port) issues.push('Geçersiz Amazon adresi');
+        if (!tag) issues.push('Ortak kimliği yapılandırılmamış');
+        else if (url.searchParams.get('tag') !== tag) issues.push('Ortak kimliği eşleşmiyor');
+        if (!/\\/(?:dp|gp\\/product)\\/[A-Za-z0-9]{10}(?:\\/|$)/.test(url.pathname)) issues.push('Ürün ASIN yolu doğrulanamadı');
+      } catch { issues.push('Geçersiz URL'); }
+      return { id: link.id, productId: link.productId, active: link.active, validFormat: issues.length === 0, issues };
+    }) };
+  }
+
   @Post()
   async create(@Body() input: unknown) {
     const body = bodyObject(input);

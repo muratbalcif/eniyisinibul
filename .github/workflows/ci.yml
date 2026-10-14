@@ -15,5 +15,11 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --no-frozen-lockfile
+      - name: Validate Prisma schema
+        run: pnpm --filter @eib/database exec prisma validate
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
       - run: pnpm --filter @eib/database db:generate
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
       - run: pnpm build

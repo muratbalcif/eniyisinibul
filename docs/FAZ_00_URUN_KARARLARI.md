@@ -13,7 +13,8 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 - Projenin işletmecisi: **BALANCETECH Bilişim Danışmanlık Ltd. Şti.** (proje sahibinin beyanı).
 - KVKK metninde veri sorumlusu sıfatı, şirketin fiilî veri işleme rolü ve güncel sicil bilgileriyle doğrulanacaktır.
 - Proje için bildirilen iletişim e-postası: **muratbalci269@gmail.com**. Şirketin resmî iletişim adresi olarak kullanılacağı proje sahibi tarafından ayrıca doğrulanmalıdır.
-- Resmî tebligat adresi ve gerekli şirket tanımlayıcıları henüz sağlanmadı; tahmin edilmez.
+- Proje sahibinin bildirdiği şirket adresi: **Öğretmenler Mahallesi, 2927. Sokak, No: 9/2, Tarsus/Mersin, Türkiye**. Resmî sicil kaydıyla eşleşmesi yayından önce doğrulanacaktır.
+- Gerekli şirket tanımlayıcıları henüz sağlanmadı; tahmin edilmez.
 
 ## 0.3 Gelir modeli ve bağımsızlık
 - Başlangıç modeli Amazon Türkiye Gelir Ortaklığı yönlendirmeleridir.
@@ -65,7 +66,8 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 - [ ] Amazon'un güncel program koşulları yetkili kaynak üzerinden doğrulandı.
 - [x] İşletmeci şirketin unvanı proje sahibi tarafından doğrulandı.
 - [x] Proje iletişim e-posta adresi alındı.
-- [ ] Şirketin resmî adresi ve veri sorumlusu sıfatı doğrulandı.
+- [x] Şirket adresi proje sahibi tarafından bildirildi.
+- [ ] Adresin sicil kaydıyla eşleşmesi ve veri sorumlusu sıfatı doğrulandı.
 - [ ] Nihai KVKK, çerez ve affiliate metinleri hukuk/uyum açısından onaylandı.
 - [ ] Faz 0 ürün kararları proje sahibi tarafından onaylandı.
 

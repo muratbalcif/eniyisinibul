@@ -1,5 +1,7 @@
 import { CanActivate, Controller, ExecutionContext, Get, HttpCode, Injectable, Post, Req, Res, UnauthorizedException, Body } from '@nestjs/common';
 import { DatabaseService } from './database';
+import { AdminOriginGuard } from './admin-origin';
+import { UseGuards } from '@nestjs/common';
 import { createHash, randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'node:crypto';
 import { promisify } from 'node:util';
 import type { Request, Response } from 'express';
@@ -39,6 +41,7 @@ export class AdminSessionGuard implements CanActivate {
 export class AdminAuthController {
   constructor(private readonly db: DatabaseService) {}
   @Post('login')
+  @UseGuards(AdminOriginGuard)
   @HttpCode(200)
   async login(@Body() body: unknown, @Res({ passthrough: true }) res: Response) {
     const data = body && typeof body === 'object' && !Array.isArray(body) ? body as Record<string, unknown> : {};
@@ -52,6 +55,7 @@ export class AdminAuthController {
     return { authenticated: true, expiresAt };
   }
   @Post('logout')
+  @UseGuards(AdminOriginGuard)
   @HttpCode(204)
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const token = tokenFrom(req);

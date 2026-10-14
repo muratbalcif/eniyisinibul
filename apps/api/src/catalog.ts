@@ -1,10 +1,5 @@
-import { BadRequestException, Controller, Get, Injectable, NotFoundException, Param, Query } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-
-@Injectable()
-export class DatabaseService extends PrismaClient {
-  constructor() { super(); }
-}
+import { BadRequestException, Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
+import { DatabaseService } from './database';
 
 @Controller('api/v1')
 export class CatalogController {

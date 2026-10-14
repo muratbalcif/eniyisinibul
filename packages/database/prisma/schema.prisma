@@ -16,6 +16,8 @@ model Product {
   slug String @unique
   title String
   description String?
+  imageUrl String?
+  specifications Json?
   categoryId String
   category Category @relation(fields: [categoryId], references: [id])
   links AffiliateLink[]

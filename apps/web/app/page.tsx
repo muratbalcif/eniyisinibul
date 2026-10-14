@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 type Category = { id: string; slug: string; name: string };
-type Product = { id: string; slug: string; title: string; description: string | null; category: { name: string; slug: string } };
+type Product = { id: string; slug: string; title: string; description: string | null; imageUrl?: string | null; category: { name: string; slug: string } };
 type ProductResult = { items: Product[]; total: number };
 
 async function catalog() {
@@ -55,7 +55,8 @@ export default async function Home() {
     <section id="urunler" style={{ maxWidth: 1180, margin: 'auto', padding: '60px 24px 80px' }}>
       <p style={{ color: '#0f766e', fontWeight: 700 }}>ÜRÜN REHBERİ</p>
       <h2 style={{ fontSize: 34, margin: '8px 0 24px' }}>Son eklenen ürünler</h2>
-      {products.length ? <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 18 }}>{products.map(product => <Link href={'/urunler/' + product.slug} key={product.id} style={{ background: '#fff', border: '1px solid #e0eae5', borderRadius: 18, padding: 26, textDecoration: 'none', color: '#15352e' }}><p style={{ color: '#0f766e', fontSize: 13, fontWeight: 700 }}>{product.category.name}</p><h3 style={{ fontSize: 21 }}>{product.title}</h3><p style={{ color: '#64766f', lineHeight: 1.6 }}>{product.description ? product.description.slice(0, 160) : 'Ürün detaylarını inceleyin.'}</p><span style={{ color: '#0f766e', fontWeight: 700 }}>Detayları gör →</span></Link>)}</div> : <div style={{ background: '#fff', padding: 28, borderRadius: 18, border: '1px solid #e0eae5' }}>{available ? 'Henüz yayınlanmış ürün bulunmuyor.' : 'Ürün listesi şu anda yüklenemiyor.'}</div>}
+      {products.length ? <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 18 }}>{products.map(product => <Link href={'/urunler/' + product.slug} key={product.id} style={{ background: '#fff', border: '1px solid #e0eae5', borderRadius: 18, padding: 26, textDecoration: 'none', color: '#15352e' }}>{product.imageUrl && <img src={product.imageUrl} alt={product.title} loading="lazy" style={{ width: '100%', height: 180, objectFit: 'contain', marginBottom: 12 }} />}
+          <p style={{ color: '#0f766e', fontSize: 13, fontWeight: 700 }}>{product.category.name}</p><h3 style={{ fontSize: 21 }}>{product.title}</h3><p style={{ color: '#64766f', lineHeight: 1.6 }}>{product.description ? product.description.slice(0, 160) : 'Ürün detaylarını inceleyin.'}</p><span style={{ color: '#0f766e', fontWeight: 700 }}>Detayları gör →</span></Link>)}</div> : <div style={{ background: '#fff', padding: 28, borderRadius: 18, border: '1px solid #e0eae5' }}>{available ? 'Henüz yayınlanmış ürün bulunmuyor.' : 'Ürün listesi şu anda yüklenemiyor.'}</div>}
       <p style={{ marginTop: 28 }}><Link href="/urunler" style={{ color: '#0f766e', fontWeight: 700 }}>Tüm ürünleri görüntüle →</Link></p>
     </section>
     <section id="nasil-calisir" style={{ background: '#eaf4ef', padding: '70px 24px' }}><div style={{ maxWidth: 1180, margin: 'auto' }}><h2 style={{ fontSize: 34 }}>Nasıl çalışır?</h2><div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}><div><h3>01 · İhtiyacını belirle</h3><p>Önceliklerini ve kullanım amacını netleştir.</p></div><div><h3>02 · Özellikleri incele</h3><p>Ürün bilgilerini anlaşılır bir şekilde değerlendir.</p></div><div><h3>03 · Kararını ver</h3><p>Mağaza bağlantılarına geçmeden önce seçenekleri gözden geçir.</p></div></div></div></section>

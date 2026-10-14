@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { AdminDevGuard } from './admin-auth';
+import { AdminSessionGuard } from './admin-auth';
 import { DatabaseService } from './database';
 
 function validUrl(value: unknown): string {
@@ -14,7 +14,7 @@ function bodyObject(input: unknown): Record<string, unknown> {
   return input as Record<string, unknown>;
 }
 @Controller('api/v1/admin/affiliate-links')
-@UseGuards(AdminDevGuard)
+@UseGuards(AdminSessionGuard)
 export class AdminLinksController {
   constructor(private readonly db: DatabaseService) {}
   @Get('product/:productId')

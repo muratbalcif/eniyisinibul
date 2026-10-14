@@ -1,0 +1,10 @@
+{
+  "name": "eniyisinibul",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "dev:web": "pnpm --filter @eib/web dev",
+    "dev:api": "pnpm --filter @eib/api dev",
+    "build": "pnpm -r build"
+  }
+}

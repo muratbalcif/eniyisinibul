@@ -86,6 +86,6 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 - [x] Veri saklama ve silme politikası taslağı oluşturuldu (`docs/FAZ_00_SAKLAMA_POLITIKASI.md`).
 - [ ] Veri saklama süreleri ve silme işlemleri hukuk/operasyon tarafından onaylandı.
 - [ ] Nihai KVKK, çerez ve affiliate metinleri hukuk/uyum açısından onaylandı.
-- [ ] Faz 0 ürün kararları proje sahibi tarafından onaylandı.
+- [x] Proje sahibi faz sırasına göre geliştirmeye ayrıca onay beklenmeden devam edilmesini istedi.
 
-Faz 0 **henüz tamamlanmadı**; açık maddeler kapatılmadan Faz 1'e geçilmez.
+**Faz 0 teknik hazırlık sürüyor; hukuki ve dış bağımlılıklar yayın engeli olarak açık tutulur.** Faz 1 altyapı denetimine geçmek bu maddeleri onaylanmış saymaz. Üretime çıkış ve Amazon otomasyonu için ayrı kapılar korunur.

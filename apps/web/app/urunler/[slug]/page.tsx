@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
-type Product = { id: string; title: string; slug: string; description: string | null; category: { name: string; slug: string }; links: { id: string; merchant: string }[] };
+type Product = { id: string; title: string; slug: string; description: string | null; imageUrl?: string | null; category: { name: string; slug: string }; links: { id: string; merchant: string }[] };
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return { title: 'Ürün bulunamadı' };
@@ -35,6 +35,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     <p><Link href="/urunler" style={{ color: '#0f766e' }}>← Tüm ürünler</Link></p>
     <p style={{ color: '#0f766e', fontWeight: 700 }}>{product.category.name}</p>
     <h1 style={{ fontSize: 'clamp(34px,5vw,54px)' }}>{product.title}</h1>
+    {product.imageUrl && <img src={product.imageUrl} alt={product.title} style={{ width: '100%', maxHeight: 430, objectFit: 'contain' }} />}
     <section style={{ padding: 30, background: '#fff', borderRadius: 18, border: '1px solid #e2e8f0', lineHeight: 1.8 }}>
       <h2>Ürün hakkında</h2>
       <p style={{ whiteSpace: 'pre-wrap' }}>{product.description ?? 'Bu ürünün açıklaması henüz eklenmedi.'}</p>

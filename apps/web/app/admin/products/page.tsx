@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import ProductForm from './product-form';
+import AmazonImport from './amazon-import';
 import ProductActions from './product-actions';
 
 type Product = { id: string; slug: string; title: string; description: string | null; imageUrl?: string | null; specifications?: Record<string, string> | null; category: { name: string } };
@@ -36,7 +37,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   return <main style={{ maxWidth: 1080, margin: 'auto', padding: 32 }}>
     <p><Link href="/admin">← Yönetim paneli</Link></p>
     <h1>Ürünler</h1>
-    {categoriesFailed ? <p role="alert">Kategori bilgileri yüklenemedi.</p> : <ProductForm categories={categories} />}
+    {categoriesFailed ? <p role="alert">Kategori bilgileri yüklenemedi.</p> : <><AmazonImport categories={categories} /><ProductForm categories={categories} /></>}
     {failed || !result ? <p role="alert">Ürünler yüklenemedi.</p> :
       <><p>Toplam {result.total} ürün</p>
         {result.items.length === 0 ? <p>Henüz ürün bulunmuyor.</p> :

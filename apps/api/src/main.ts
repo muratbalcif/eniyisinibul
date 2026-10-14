@@ -1,7 +1,8 @@
 import 'reflect-metadata';
-import { Controller, Get, Module, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { Controller, Get, Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { CatalogController, DatabaseService } from './catalog';
+import { CatalogController } from './catalog';
+import { DatabaseService } from './database';
 import { AdminCatalogController } from './admin-catalog';
 import { AdminDevGuard } from './admin-auth';
 

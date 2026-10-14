@@ -49,10 +49,11 @@ export class CatalogController {
   @Get('go/:id')
   async affiliateRedirect(@Param('id') id: string, @Res() response: Response) {
     if (!/^[a-z0-9]{10,64}$/.test(id)) throw new NotFoundException('Link not found');
-    const link = await this.db.affiliateLink.findFirst({ where: { id, active: true }, select: { url: true } });
+    const link = await this.db.affiliateLink.findFirst({ where: { id, active: true }, select: { id: true, productId: true, url: true } });
     if (!link) throw new NotFoundException('Link not found');
     const destination = new URL(link.url);
     if (destination.protocol !== 'https:' || !['amazon.com.tr', 'www.amazon.com.tr'].includes(destination.hostname.toLowerCase()) || destination.username || destination.password || destination.port) throw new NotFoundException('Link not available');
+    try { await this.db.affiliateClick.create({ data: { linkId: link.id, productId: link.productId } }); } catch (error) { console.error('Affiliate click tracking failed', error); }
     response.setHeader('Cache-Control', 'no-store');
     return response.redirect(302, destination.toString());
   }

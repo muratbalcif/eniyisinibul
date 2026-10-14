@@ -10,12 +10,13 @@ import { AdminOriginGuard } from './admin-origin';
 import { LoginThrottle } from './login-throttle';
 import { AdminAnalyticsController } from './admin-analytics';
 import { AdminAmazonController } from './admin-amazon';
+import { AmazonDiscoveryController } from './amazon-discovery';
 
 @Controller()
 class HealthController {
   @Get('health') health() { return { status: 'ok', service: 'eniyisinibul-api' }; }
 }
-@Module({ controllers: [HealthController, CatalogController, AdminCatalogController, AdminLinksController, AdminAuthController, AdminAnalyticsController, AdminAmazonController], providers: [DatabaseService, AdminSessionGuard, AdminOriginGuard, LoginThrottle] })
+@Module({ controllers: [HealthController, CatalogController, AdminCatalogController, AdminLinksController, AdminAuthController, AdminAnalyticsController, AdminAmazonController, AmazonDiscoveryController], providers: [DatabaseService, AdminSessionGuard, AdminOriginGuard, LoginThrottle] })
 class AppModule {}
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

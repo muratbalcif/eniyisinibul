@@ -6,7 +6,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
     "admin:bootstrap": "tsx src/admin-bootstrap.ts",
-    "retention:preview": "tsx src/retention-preview-cli.ts"
+    "retention:preview": "tsx src/retention-preview-cli.ts",
+    "test:retention": "tsx --test src/retention-preview.test.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.0",

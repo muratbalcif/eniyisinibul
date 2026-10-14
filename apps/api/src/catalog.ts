@@ -23,7 +23,7 @@ export class CatalogController {
   ) {
     const page = pageRaw === undefined ? 1 : Number(pageRaw);
     const limit = limitRaw === undefined ? 20 : Number(limitRaw);
-    if (!Number.isInteger(page) || page < 1 || !Number.isInteger(limit) || limit < 1 || limit > 100) {
+    if (!Number.isSafeInteger(page) || page < 1 || !Number.isSafeInteger(limit) || limit < 1 || limit > 100 || (page - 1) * limit > 1000000) {
       throw new BadRequestException('page must be >= 1 and limit must be between 1 and 100');
     }
     const q = typeof query === 'string' ? query.trim() : '';
@@ -62,7 +62,7 @@ export class CatalogController {
     const item = await this.db.product.findUnique({
       where: { slug },
       select: {
-        id: true, slug: true, title: true, description: true,
+        id: true, slug: true, title: true, description: true, imageUrl: true, specifications: true,
         category: { select: { slug: true, name: true } },
         links: { where: { active: true }, select: { id: true, merchant: true } },
       },

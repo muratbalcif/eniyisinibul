@@ -5,13 +5,13 @@ import { CatalogController } from './catalog';
 import { DatabaseService } from './database';
 import { AdminCatalogController } from './admin-catalog';
 import { AdminLinksController } from './admin-links';
-import { AdminDevGuard } from './admin-auth';
+import { AdminSessionGuard, AdminAuthController } from './admin-auth';
 
 @Controller()
 class HealthController {
   @Get('health') health() { return { status: 'ok', service: 'eniyisinibul-api' }; }
 }
-@Module({ controllers: [HealthController, CatalogController, AdminCatalogController, AdminLinksController], providers: [DatabaseService, AdminDevGuard] })
+@Module({ controllers: [HealthController, CatalogController, AdminCatalogController, AdminLinksController, AdminAuthController], providers: [DatabaseService, AdminSessionGuard] })
 class AppModule {}
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

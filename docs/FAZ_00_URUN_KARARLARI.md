@@ -83,6 +83,8 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 - [x] Amazon standart beyanı site alt bilgisine eklendi.
 - [x] Teknik veri işleme envanteri taslağı oluşturuldu (`docs/FAZ_00_VERI_ENVANTERI.md`).
 - [x] Gizlilik ön bilgilendirmesine tıklama kaydı ve ilgili kişi başvuru e-postası eklendi.
+- [x] Veri saklama ve silme politikası taslağı oluşturuldu (`docs/FAZ_00_SAKLAMA_POLITIKASI.md`).
+- [ ] Veri saklama süreleri ve silme işlemleri hukuk/operasyon tarafından onaylandı.
 - [ ] Nihai KVKK, çerez ve affiliate metinleri hukuk/uyum açısından onaylandı.
 - [ ] Faz 0 ürün kararları proje sahibi tarafından onaylandı.
 

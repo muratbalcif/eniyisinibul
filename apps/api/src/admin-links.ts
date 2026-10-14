@@ -33,7 +33,7 @@ export class AdminLinksController {
         if (url.protocol !== 'https:' || !['amazon.com.tr', 'www.amazon.com.tr'].includes(url.hostname.toLowerCase()) || url.username || url.password || url.port) issues.push('Geçersiz Amazon adresi');
         if (!tag) issues.push('Ortak kimliği yapılandırılmamış');
         else if (url.searchParams.get('tag') !== tag) issues.push('Ortak kimliği eşleşmiyor');
-        if (!/\\/(?:dp|gp\\/product)\\/[A-Za-z0-9]{10}(?:\\/|$)/.test(url.pathname)) issues.push('Ürün ASIN yolu doğrulanamadı');
+        if (!new RegExp('^/(?:dp|gp/product)/[A-Za-z0-9]{10}(?:/|$)').test(url.pathname)) issues.push('Ürün ASIN yolu doğrulanamadı');
       } catch { issues.push('Geçersiz URL'); }
       return { id: link.id, productId: link.productId, active: link.active, validFormat: issues.length === 0, issues };
     }) };

@@ -22,4 +22,6 @@ jobs:
       - run: pnpm --filter @eib/database db:generate
         env:
           DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/eniyisinibul?schema=public
+      - name: Test retention preview (no database writes)
+        run: pnpm --filter @eib/api test:retention
       - run: pnpm build

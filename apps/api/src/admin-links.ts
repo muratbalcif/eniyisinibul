@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Inject, BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { AdminSessionGuard } from './admin-auth';
 import { AdminOriginGuard } from './admin-origin';
 import { DatabaseService } from './database';
@@ -17,7 +17,7 @@ function bodyObject(input: unknown): Record<string, unknown> {
 @Controller('api/v1/admin/affiliate-links')
 @UseGuards(AdminOriginGuard, AdminSessionGuard)
 export class AdminLinksController {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(@Inject(DatabaseService) private readonly db: DatabaseService) {}
   @Get('product/:productId')
   list(@Param('productId') productId: string) {
     return this.db.affiliateLink.findMany({ where: { productId }, orderBy: { createdAt: 'desc' } });

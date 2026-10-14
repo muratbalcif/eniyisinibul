@@ -1,6 +1,6 @@
 import { BadRequestException, Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { DatabaseService } from './catalog';
+import { DatabaseService } from './database';
 import { AdminDevGuard } from './admin-auth';
 
 function obj(value: unknown): Record<string, unknown> {

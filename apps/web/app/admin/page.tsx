@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import LogoutButton from './logout-button';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -25,6 +26,7 @@ export default async function AdminPage() {
       <header style={{ marginBottom: 36 }}>
         <p style={{ color: '#0f766e', fontWeight: 700, letterSpacing: 1 }}>EN İYİSİNİ BUL</p>
         <h1 style={{ fontSize: 38, marginBottom: 8 }}>Yönetim paneli</h1>
+        <LogoutButton />
         <p style={{ color: '#64748b' }}>Bu ekran geliştirme önizlemesidir; yönetim işlemleri henüz etkin değil.</p>
       </header>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 18 }}>

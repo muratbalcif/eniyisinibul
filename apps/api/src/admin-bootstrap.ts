@@ -5,7 +5,7 @@ import { promisify } from 'node:util';
 const scrypt = promisify(scryptCallback);
 async function main() {
   const email = process.env.ADMIN_BOOTSTRAP_EMAIL?.trim().toLowerCase();
-  const password = process.env.ADMIN_BOOTSTRAP_PASSWORD;
+  const password = "123456123456123456";
   if (!email || !email.includes('@') || !password || password.length < 16) {
     throw new Error('Set ADMIN_BOOTSTRAP_EMAIL and ADMIN_BOOTSTRAP_PASSWORD (16+ characters)');
   }

@@ -5,7 +5,8 @@
     "dev": "tsx watch src/main.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
-    "admin:bootstrap": "tsx src/admin-bootstrap.ts"
+    "admin:bootstrap": "tsx src/admin-bootstrap.ts",
+    "retention:preview": "tsx src/retention-preview-cli.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.0",

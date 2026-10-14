@@ -47,7 +47,7 @@ export default async function Products({ searchParams }: { searchParams: Promise
     <p style={{ color: '#64748b', fontSize: 14 }}>Ürünleri seçerek karşılaştırabilir, detay sayfalarında teknik özelliklerini inceleyebilirsiniz.</p>
     {!result ? <p role="alert">Ürünler şu anda yüklenemiyor.</p> : <>
       <p aria-live="polite">{result.total} ürün bulundu{q ? ' · Arama: ' + q : ''}.</p>
-      <CompareSelector products={result.items} />
+      <CompareSelector key={category + ':' + q + ':' + page} products={result.items} />
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 18 }}>
         {result.items.map(item => <Link key={item.id} href={'/urunler/' + item.slug} style={{ padding: 24, background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', textDecoration: 'none', color: '#15352e' }}>
           {item.imageUrl && <img src={item.imageUrl} alt={item.title} loading="lazy" style={{ width: '100%', height: 190, objectFit: 'contain' }} />}

@@ -1,10 +1,10 @@
-import { BadRequestException, Controller, Get, NotFoundException, Param, Query, Res } from '@nestjs/common';
+import { Inject, BadRequestException, Controller, Get, NotFoundException, Param, Query, Res } from '@nestjs/common';
 import { DatabaseService } from './database';
 import type { Response } from 'express';
 
 @Controller('api/v1')
 export class CatalogController {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(@Inject(DatabaseService) private readonly db: DatabaseService) {}
 
   @Get('categories')
   categories() {

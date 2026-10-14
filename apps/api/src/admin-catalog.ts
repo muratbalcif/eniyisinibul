@@ -102,7 +102,7 @@ export class AdminCatalogController {
     if (!category) throw new BadRequestException('Unknown categoryId');
     const description = body.description == null ? null : requiredString(body.description, 'description', 5000);
     return safeWrite(() => this.db.product.create({
-      data: { slug: slug(body.slug), title: requiredString(body.title, 'title', 240), description, categoryId, imageUrl: imageUrl(body.imageUrl) },
+      data: { slug: slug(body.slug), title: requiredString(body.title, 'title', 240), description, categoryId, imageUrl: imageUrl(body.imageUrl), specifications: specs(body.specifications) },
     }));
   }
 

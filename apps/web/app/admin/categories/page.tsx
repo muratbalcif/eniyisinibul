@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import CategoryForm from './category-form';
 
 type Category = { id: string; slug: string; name: string };
 export default async function CategoriesPage() {
@@ -23,6 +24,7 @@ export default async function CategoriesPage() {
   return <main style={{ maxWidth: 1000, margin: 'auto', padding: 32 }}>
     <p><Link href="/admin">← Yönetim paneli</Link></p>
     <h1>Kategoriler</h1>
+    {!failed && <CategoryForm />}
     {failed ? <p role="alert">Kategoriler yüklenemedi.</p> :
       categories.length === 0 ? <p>Henüz kategori bulunmuyor.</p> :
       <table style={{ width: '100%', borderCollapse: 'collapse', background: 'white' }}>

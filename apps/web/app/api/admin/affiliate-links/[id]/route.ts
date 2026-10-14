@@ -6,13 +6,15 @@ async function proxy(request: NextRequest, context: Context, method: 'PATCH' | '
   const token = request.cookies.get('eib_admin_session')?.value;
   if (!api || !origin) return NextResponse.json({ error: 'Not configured' }, { status: 503 });
   if (request.headers.get('origin') !== origin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!token || !/^[a-f0-9]{64}$/.test(token)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await context.params;
   if (!/^[a-z0-9]{10,64}$/.test(id)) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
   let body: string | undefined;
   if (method === 'PATCH') {
+    const raw = await request.text();
+    if (raw.length > 1024) return NextResponse.json({ error: 'Payload too large' }, { status: 413 });
     let input: unknown;
-    try { input = await request.json(); } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }); }
+    try { input = JSON.parse(raw); } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }); }
     if (!input || typeof input !== 'object' || Array.isArray(input)) return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
     const data = input as Record<string, unknown>;
     if (typeof data.active !== 'boolean') return NextResponse.json({ error: 'Invalid status' }, { status: 400 });

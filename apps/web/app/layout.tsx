@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import SiteHeader from './site-header';
-import SiteFooter from './site-footer';
+import SiteChrome from './site-chrome';
 import './site.css';
 
 export const metadata: Metadata = {
@@ -11,5 +10,5 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', locale: 'tr_TR', siteName: 'En İyisini Bul', title: 'En İyisini Bul', description: 'Ürünleri keşfet, karşılaştırmaya hazırlan ve bilinçli karar ver.' },
 };
 export default function RootLayout({ children }: { children: ReactNode }) {
-  return <html lang="tr"><body style={{ margin: 0, fontFamily: 'system-ui, sans-serif', background: '#f8faf9', color: '#15352e' }}><SiteHeader />{children}<SiteFooter /></body></html>;
+  return <html lang="tr"><body style={{ margin: 0, fontFamily: 'system-ui, sans-serif', background: '#f8faf9', color: '#15352e' }}><SiteChrome>{children}</SiteChrome></body></html>;
 }

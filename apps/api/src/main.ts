@@ -2,12 +2,14 @@ import 'reflect-metadata';
 import { Controller, Get, Module, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { CatalogController, DatabaseService } from './catalog';
+import { AdminCatalogController } from './admin-catalog';
+import { AdminDevGuard } from './admin-auth';
 
 @Controller()
 class HealthController {
   @Get('health') health() { return { status: 'ok', service: 'eniyisinibul-api' }; }
 }
-@Module({ controllers: [HealthController, CatalogController], providers: [DatabaseService] })
+@Module({ controllers: [HealthController, CatalogController, AdminCatalogController], providers: [DatabaseService, AdminDevGuard] })
 class AppModule {}
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

@@ -80,6 +80,8 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 - [x] Proje iletişim e-posta adresi alındı.
 - [x] Şirket adresi proje sahibi tarafından bildirildi.
 - [ ] Adresin sicil kaydıyla eşleşmesi ve veri sorumlusu sıfatı doğrulandı.
+- [x] Amazon standart beyanı site alt bilgisine eklendi.
+- [x] Teknik veri işleme envanteri taslağı oluşturuldu (`docs/FAZ_00_VERI_ENVANTERI.md`).
 - [ ] Nihai KVKK, çerez ve affiliate metinleri hukuk/uyum açısından onaylandı.
 - [ ] Faz 0 ürün kararları proje sahibi tarafından onaylandı.
 

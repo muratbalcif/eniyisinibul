@@ -58,12 +58,24 @@ Durum: GELİŞTİRİLİYOR. Bu belge uygulama kararlarını ve yayından önce d
 - Amazon API onayı tek başına START değildir; ayrı operatör kararı gerekir.
 - Üretim sırları GitHub'a eklenmez.
 
+## 0.9 Resmî kaynak kontrolü (14.10.2026)
+- Amazon bağlantı düzeyinde açık ve görünür reklam/komisyon açıklaması ister. Ürün detayındaki bağlantı metni bu yönde güncellendi.
+- Amazon'un açıklama rehberi, site üzerinde şu ifadenin yer almasını istiyor: "Bir Amazon Gelir Ortağı olarak nitelikli satın alımlar üzerinden kazanç elde ediyorum." Bu ifadenin site geneline eklenmesi hâlâ açık.
+- Amazon başvuru incelemesi için ilk 180 gün içinde en az üç uygun satış ve özgün, kamuya açık içerik şartlarından söz ediyor; mevcut hesap için uygulanabilirlik Amazon panelinden ayrıca doğrulanmalı.
+- KVKK m.10 kapsamında veri sorumlusu, amaç, aktarım, toplama yöntemi/hukuki sebep ve ilgili kişi hakları açıklanmalı. Aydınlatma ve açık rıza ayrı süreçlerdir.
+- Kaynaklar:
+  - https://gelirortakligi.amazon.com.tr/help/node/topic/GPXFHVYZMTGPUMPE
+  - https://gelirortakligi.amazon.com.tr/help/node/topic/G8TW5AE9XL2VX9VM
+  - https://www.kvkk.gov.tr/Icerik/2033/Aydinlatma-Yukumlulugu-
+  - https://www.kvkk.gov.tr/Icerik/8710/veri-sorumlulari-tarafindan-acik-riza-ve-aydinlatma-metinlerinin-ayri-ayri-duzenlenmesi-gerektigi-hakkinda-kisisel-verileri-koruma-kurulunun-18-02-2026-tarihli-ve-2026-347-sayili-ilke-kararina-iliskin-kamuoyu-duyurusu
+
 ## Faz 0 kabul listesi
 - [x] Ürün amacı, hedef kullanıcı ve ilk kategori belgelendi.
 - [x] Gelir modeli ve affiliate şeffaflığı kuralı belgelendi.
 - [x] Otomatik keşif ve yayın onayı ilkeleri belgelendi.
 - [x] Yetkili veri kaynağı ve sahte veri yasağı belgelendi.
-- [ ] Amazon'un güncel program koşulları yetkili kaynak üzerinden doğrulandı.
+- [x] Amazon'un resmi açıklama gerekliliği ve başvuru inceleme koşulları kaynaklardan kontrol edildi (14.10.2026).
+- [ ] Amazon marka, görsel, fiyat, veri kullanım ve API lisans koşulları tüm kullanım senaryoları için doğrulandı.
 - [x] İşletmeci şirketin unvanı proje sahibi tarafından doğrulandı.
 - [x] Proje iletişim e-posta adresi alındı.
 - [x] Şirket adresi proje sahibi tarafından bildirildi.

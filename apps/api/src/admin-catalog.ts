@@ -109,11 +109,12 @@ export class AdminCatalogController {
   @Patch('products/:id')
   updateProduct(@Param('id') id: string, @Body() input: unknown) {
     const body = obj(input);
-    const data: { title?: string; description?: string | null; slug?: string; imageUrl?: string | null } = {};
+    const data: { title?: string; description?: string | null; slug?: string; imageUrl?: string | null; specifications?: Record<string, string> | null } = {};
     if ('title' in body) data.title = requiredString(body.title, 'title', 240);
     if ('slug' in body) data.slug = slug(body.slug);
     if ('description' in body) data.description = body.description === null ? null : requiredString(body.description, 'description', 5000);
     if ('imageUrl' in body) data.imageUrl = imageUrl(body.imageUrl);
+    if ('specifications' in body) data.specifications = specs(body.specifications);
     if (!Object.keys(data).length) throw new BadRequestException('No editable fields');
     return safeWrite(() => this.db.product.update({ where: { id }, data }));
   }

@@ -33,6 +33,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   if (!product) return <main style={{ maxWidth: 920, margin: 'auto', padding: 48 }}><p role="alert">Ürün bilgisi şu anda yüklenemiyor.</p><Link href="/urunler">Ürünlere dön</Link></main>;
   return <main style={{ maxWidth: 920, margin: 'auto', padding: '48px 24px' }}>
     <p><Link href="/urunler" style={{ color: '#0f766e' }}>← Tüm ürünler</Link></p>
+    <nav aria-label="İçerik yolu" style={{ marginBottom: 22, color: '#64748b' }}><Link href="/" style={{ color: '#0f766e' }}>Ana sayfa</Link> / <Link href={'/urunler?category=' + encodeURIComponent(product.category.slug)} style={{ color: '#0f766e' }}>{product.category.name}</Link> / <span>{product.title}</span></nav>
     <p style={{ color: '#0f766e', fontWeight: 700 }}>{product.category.name}</p>
     <h1 style={{ fontSize: 'clamp(34px,5vw,54px)' }}>{product.title}</h1>
     {product.imageUrl && <img src={product.imageUrl} alt={product.title} style={{ width: '100%', maxHeight: 430, objectFit: 'contain' }} />}

@@ -25,8 +25,8 @@ function imageUrl(value: unknown): string | null {
   if (url.protocol !== 'https:' || url.username || url.password || url.port || !['images.unsplash.com', 'm.media-amazon.com', 'images-na.ssl-images-amazon.com'].includes(url.hostname.toLowerCase())) throw new BadRequestException('Image host not allowed');
   return url.toString();
 }
-function specs(value: unknown): Record<string, string> | null {
-  if (value == null) return null;
+function specs(value: unknown): Record<string, string> {
+  if (value == null) return {};
   if (typeof value !== 'object' || Array.isArray(value)) throw new BadRequestException('Invalid specifications');
   const entries = Object.entries(value);
   if (entries.length > 20) throw new BadRequestException('Too many specifications');
@@ -109,7 +109,7 @@ export class AdminCatalogController {
   @Patch('products/:id')
   updateProduct(@Param('id') id: string, @Body() input: unknown) {
     const body = obj(input);
-    const data: { title?: string; description?: string | null; slug?: string; imageUrl?: string | null; specifications?: Record<string, string> | null } = {};
+    const data: { title?: string; description?: string | null; slug?: string; imageUrl?: string | null; specifications?: Record<string, string> } = {};
     if ('title' in body) data.title = requiredString(body.title, 'title', 240);
     if ('slug' in body) data.slug = slug(body.slug);
     if ('description' in body) data.description = body.description === null ? null : requiredString(body.description, 'description', 5000);

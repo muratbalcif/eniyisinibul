@@ -1,4 +1,4 @@
-import { Injectable, TooManyRequestsException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { createHash } from 'node:crypto';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class LoginThrottle {
     }
     const previous = this.attempts.get(key);
     if (previous && previous.until > now && previous.count >= 5) {
-      throw new TooManyRequestsException('Please retry later');
+      throw new HttpException('Please retry later', HttpStatus.TOO_MANY_REQUESTS);
     }
     this.attempts.set(key, {
       count: previous && previous.until > now ? previous.count + 1 : 1,

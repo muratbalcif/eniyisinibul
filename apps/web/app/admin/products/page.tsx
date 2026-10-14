@@ -2,8 +2,9 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import ProductForm from './product-form';
+import ProductActions from './product-actions';
 
-type Product = { id: string; slug: string; title: string; category: { name: string } };
+type Product = { id: string; slug: string; title: string; description: string | null; category: { name: string } };
 type Result = { items: Product[]; total: number; page: number; limit: number };
 
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
@@ -40,8 +41,8 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <><p>Toplam {result.total} ürün</p>
         {result.items.length === 0 ? <p>Henüz ürün bulunmuyor.</p> :
           <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', background: '#fff', borderCollapse: 'collapse' }}>
-            <thead><tr><th align="left">Ürün</th><th align="left">Kategori</th><th align="left">Slug</th></tr></thead>
-            <tbody>{result.items.map(item => <tr key={item.id}><td style={{ padding: 12 }}>{item.title}</td><td>{item.category.name}</td><td>{item.slug}</td></tr>)}</tbody>
+            <thead><tr><th align="left">Ürün</th><th align="left">Kategori</th><th align="left">Slug</th><th align="left">İşlemler</th></tr></thead>
+            <tbody>{result.items.map(item => <tr key={item.id}><td style={{ padding: 12 }}>{item.title}</td><td>{item.category.name}</td><td>{item.slug}</td><td style={{ padding: 12 }}><ProductActions product={item} /></td></tr>)}</tbody>
           </table></div>}
         <nav style={{ display: 'flex', gap: 20, marginTop: 24 }}>
           {page > 1 && <Link href={'/admin/products?page=' + (page - 1)}>← Önceki</Link>}

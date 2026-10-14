@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   try {
     const response = await fetch(new URL('/api/v1/admin/products', api), {
       method: 'POST', headers: { Origin: origin, Cookie: 'eib_admin_session=' + token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: data.title, slug: data.slug, categoryId: data.categoryId, description: data.description || null, imageUrl: data.imageUrl || null }),
+      body: JSON.stringify({ title: data.title, slug: data.slug, categoryId: data.categoryId, description: data.description || null, imageUrl: data.imageUrl || null, specifications: data.specifications ?? {} }),
       cache: 'no-store',
     });
     if (!response.ok) return NextResponse.json({ error: 'Product not created' }, { status: response.status });

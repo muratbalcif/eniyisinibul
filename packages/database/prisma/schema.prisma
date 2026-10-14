@@ -21,6 +21,7 @@ model Product {
   categoryId String
   category Category @relation(fields: [categoryId], references: [id])
   links AffiliateLink[]
+  clicks AffiliateClick[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@index([categoryId])
@@ -33,7 +34,19 @@ model AffiliateLink {
   url String
   active Boolean @default(false)
   createdAt DateTime @default(now())
+  clicks AffiliateClick[]
   @@index([productId])
+}
+model AffiliateClick {
+  id String @id @default(cuid())
+  linkId String
+  link AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  productId String
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  @@index([createdAt])
+  @@index([productId, createdAt])
+  @@index([linkId, createdAt])
 }
 
 model AdminUser {

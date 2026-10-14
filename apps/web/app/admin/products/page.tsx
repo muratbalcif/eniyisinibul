@@ -4,7 +4,7 @@ import Link from 'next/link';
 import ProductForm from './product-form';
 import ProductActions from './product-actions';
 
-type Product = { id: string; slug: string; title: string; description: string | null; category: { name: string } };
+type Product = { id: string; slug: string; title: string; description: string | null; imageUrl?: string | null; specifications?: Record<string, string> | null; category: { name: string } };
 type Result = { items: Product[]; total: number; page: number; limit: number };
 
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {

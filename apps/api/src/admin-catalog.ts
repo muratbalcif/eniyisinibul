@@ -18,7 +18,7 @@ function slug(value: unknown): string {
   return v;
 }
 function imageUrl(value: unknown): string | null {
-  if (value === null || value === '') return null;
+  if (value == null || value === '') return null;
   if (typeof value !== 'string' || value.length > 2048) throw new BadRequestException('Invalid image URL');
   let url: URL;
   try { url = new URL(value); } catch { throw new BadRequestException('Invalid image URL'); }

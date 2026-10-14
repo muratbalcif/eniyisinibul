@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import DiscoveryPlanner from './planner';
 
-type Config = { status: string; canDiscover: boolean; message: string; searchGroups: { key: string; label: string; keywords: string[] }[] };
+type Config = { status: string; canDiscover: boolean; message: string; searchGroups: { key: string; label: string; keywords: string[] }[]; categories: { id: string; name: string; slug: string }[] };
 export default async function AmazonPage() {
   const token = (await cookies()).get('eib_admin_session')?.value;
   const api = process.env.ADMIN_API_INTERNAL_URL;

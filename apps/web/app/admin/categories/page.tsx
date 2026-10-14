@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import CategoryForm from './category-form';
+import CategoryActions from './category-actions';
 
 type Category = { id: string; slug: string; name: string };
 export default async function CategoriesPage() {
@@ -28,8 +29,8 @@ export default async function CategoriesPage() {
     {failed ? <p role="alert">Kategoriler yüklenemedi.</p> :
       categories.length === 0 ? <p>Henüz kategori bulunmuyor.</p> :
       <table style={{ width: '100%', borderCollapse: 'collapse', background: 'white' }}>
-        <thead><tr><th align="left">Kategori</th><th align="left">Slug</th></tr></thead>
-        <tbody>{categories.map(category => <tr key={category.id}><td style={{ padding: 12 }}>{category.name}</td><td>{category.slug}</td></tr>)}</tbody>
+        <thead><tr><th align="left">Kategori</th><th align="left">Slug</th><th align="left">İşlemler</th></tr></thead>
+        <tbody>{categories.map(category => <tr key={category.id}><td style={{ padding: 12 }}>{category.name}</td><td>{category.slug}</td><td><CategoryActions category={category} /></td></tr>)}</tbody>
       </table>}
   </main>;
 }

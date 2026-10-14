@@ -15,5 +15,6 @@ export async function POST(request: NextRequest) {
   } catch { return NextResponse.json({ error: 'API unavailable' }, { status: 502 }); }
   const response = NextResponse.json({ signedOut: true });
   response.cookies.set('eib_admin_session', '', { path: '/', maxAge: 0, httpOnly: true, sameSite: 'strict', secure: process.env.NODE_ENV === 'production' });
+  response.cookies.set('eib_admin_session', '', { path: '/admin', maxAge: 0, httpOnly: true, sameSite: 'strict', secure: process.env.NODE_ENV === 'production' });
   return response;
 }
